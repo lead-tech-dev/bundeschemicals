@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+		<div th:replace="common/header :: navbar" />
+		<!-- LIGHT SECTION -->
+		<section class="lightSection clearfix pageHeader">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="page-title">
+							<h2 th:text="${category}"></h2>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<ol class="breadcrumb pull-right">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="#">shop</a></li>
+							<li class="active"><a href="#" th:text="${category}"></a></li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- MAIN CONTENT SECTION -->
+		<section class="mainContent clearfix productsContent"
+			ng-controller="cartCtrl">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 col-sm-4 col-xs-12 sideBar">
+						<div class="panel panel-default">
+							<div class="panel-heading">Product categories</div>
+							<div class="panel-body">
+								<div
+									class="collapse navbar-collapse navbar-ex1-collapse navbar-side-collapse">
+									<ul class="nav navbar-nav side-nav">
+										<li data-th-each="category : ${mainCategoryNameList}"><a
+											th:href="@{/pd/s?mc=}+${category.mainCategoryName}"
+											data-toggle="collapse" data-target="#women"><span
+												th:text="${category.mainCategoryName}"></span></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default priceRange">
+							<div class="panel-heading">Filter by Price</div>
+							<div class="panel-body clearfix">
+								<div class="price-slider-inner">
+									<span class="amount-wrapper"> Price: <input type="text"
+										id="price-amount-1" /> <strong>-</strong> <input type="text"
+										id="price-amount-2" />
+									</span>
+									<div id="price-range"></div>
+								</div>
+								<input type="submit" class="btn btn-default" value="Filter" />
+								<!-- <span class="priceLabel">Price: <strong>$12 - $30</strong></span> -->
+							</div>
+						</div>
+
+
+					</div>
+					<div class="col-md-9 col-sm-8 col-xs-12">
+						<div class="row filterArea">
+						
+							<div class="col-xs-12">
+								<div class="btn-group pull-right" role="group">
+									<button type="button" class="btn btn-default"
+										th:onclick="'window.location.href=\'' + @{/productshelf}+ '\''">
+										<i class="fa fa-th" aria-hidden="true"></i><span>Grid</span>
+									</button>
+									<button type="button" class="btn btn-default active"
+										th:onclick="'window.location.href=\'' + @{/productshelf}+ '\''">
+										<i class="fa fa-th-list" aria-hidden="true"></i><span>List</span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="row productListSingle">
+							<table border="0" id="productList">
+								<thead>
+									<tr>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr data-th-each="product : ${products}">
+										<td>
+
+											<div th:if="${product != null}">
+												<div class="col-xs-12">
+													<div class="media">
+														<div class="media-left">
+															<img class="media-object"
+																th:src="@{/image/product/}+${product.id}+'.png'"
+																style="width: 228px; height: 228px;" alt="Image" /> <span
+																class="maskingImage"><a data-toggle="modal"
+																href="-2.html" class="btn viewBtn">Quick View</a></span>
+														</div>
+														<div class="media-body">
+															<h4 class="media-heading">
+																<a th:href="@{/productDetail?id=}+${product.id}"><span
+																	th:text="${product.name}"></span></a>
+															</h4>
+															<h6><span th:utext="${#strings.abbreviate(product.description, 1000)}"></span></h6>
+															
+															<h3>
+																<span>$<span
+																	th:text="${#numbers.formatDecimal(product.productPrice, 0 , 'COMMA', 2, 'POINT')}"></span></span>
+															</h3>
+															<div class="btn-group" role="group">
+																<button type="button" class="btn btn-default"
+																	data-toggle="modal" data-target=".login-modal">
+																	<i class="fa fa-heart" aria-hidden="true"></i>
+																</button>
+																<button type="button" class="btn btn-default"
+																	onclick="location.href='cart-page.html';">
+																	<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+																</button>
+															</div>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+	
+	<!-- end of container -->
+	<div th:replace="common/header :: footer" />
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+
+	<script>
+		$(document).ready(function() {
+			$('#productList').DataTable({
+				"lengthMenu":[[5,10,15,20,-1],[5,10,15,20,"All"]],
+				"ordering":false,
+				stateSave:true
+			});
+			
+			$("#producList").on('page.dt', function() {
+				$('html, body').animate({
+					scrollTop: $('#producList').offset().top
+				}, 200);
+			});
+		});
+	</script>
+
+
+
+</body>
+</html>

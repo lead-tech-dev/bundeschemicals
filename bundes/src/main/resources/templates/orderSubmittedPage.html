@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+		<!-- LIGHT SECTION -->
+		<section class="lightSection clearfix pageHeader">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="page-title">
+							<h2>thanks message</h2>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<ol class="breadcrumb pull-right">
+							<li><a href="index.html">Home</a></li>
+							<li class="active">thanks message</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- MAIN CONTENT SECTION -->
+		<section class="mainContent clearfix setp5">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="thanksContent">
+							<h2>
+								<i class="fa fa-check" aria-hidden="true"
+									style="color: limegreen;"></i> Thank you, your order has been
+								placed. <small>You will receive an email of your order
+									details, The estimated delivery date is <span
+									th:text="${estimatedDeliveryDate}" style="color: limegreen;"></span>
+								</small>
+							</h2>
+							<h3></h3>
+							<h4></h4>
+							<h3>List of Items</h3>
+							<div class="thanksInner">
+								<div class="table-responsive">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>Product image</th>
+												<th>Product Name</th>
+												<th>Price</th>
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="cartItem : ${cartItemList}">
+												<td class="col-xs-2"><span class="cartImage"><a
+														th:href="@{/productDetail(id=${cartItem.product.id})}">
+															<img class="cartImage"
+															th:src="@{/image/product/}+${cartItem.product.id}+'.png'"
+															style="width: 70px;" />
+													</a></span></td>
+												<td class="col-xs-4">
+													<div style="margin-left: 50px;">
+														<a th:href="@{/productDetail?id=}+${cartItem.product.id}"><h4
+																th:text="${cartItem.product.name}"></h4></a>
+													</div>
+												</td>
+												<td class="col-xs-2"><h5
+														style="color: #db3208; font-size: large;">
+														$<span th:text="${cartItem.product.productPrice}"
+															th:style="${cartItem.product.inStockNumber}==0? 'text-decoration: line-through' : ''"></span>
+													</h5></td>
+
+											</tr>
+
+
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	<!-- end of container -->
+	<div th:replace="common/header :: footer" />
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

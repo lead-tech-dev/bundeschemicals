@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="admin/common/header :: common-header" />
+
+<body>
+	<div th:replace="admin/common/header :: navbar" />
+
+	<div class="container">
+		<div class="row">
+			<form class="form-horizontal" th:action="@{/admin/category/add}" method="post"
+				enctype="multipart/form-data">
+				<fieldset>
+					<legend class="center-block">
+						New Category Information<span style="font-size: small"> * is a
+							required field</span>
+					</legend>
+
+
+					<!-- Main Category Name -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="mainCategoryName">* mainCategoryName</label>
+
+						<div class="col-md-8">
+							<input type="text" name="mainCategoryName" class="form-control" id="mainCategoryName"
+								th:value="${category.mainCategoryName}" required="required" placeholder="Main Category Name" />
+							<span class="help-block">Main Category Name of the product</span>
+						</div>
+					</div>
+					
+						<!-- Sub Category Name -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="subCategoryName">* subCategoryName</label>
+
+						<div class="col-md-8">
+							<input type="text" name="subCategoryName" class="form-control" id="subCategoryName"
+								th:value="${category.subCategoryName}"  placeholder="Sub Category Name" />
+							<span class="help-block">Sub Category Name of the product</span>
+						</div>
+					</div>
+					
+					
+
+					<div class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<button type="submit" class="btn btn-success">Add Category</button>
+							<a class="btn btn-danger" th:href="@{/admin}">Cancel</a>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+
+	<div th:replace="admin/common/header :: body-bottom-scripts" />
+</body>
+</html>

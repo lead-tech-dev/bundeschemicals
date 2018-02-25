@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	
+
+	
+    <!-- MAIN CONTENT SECTION -->
+    <section class="mainContent clearfix notFound">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1 col-xs-12">
+            <a th:href="@{/}" class="navbar-brand pageLogo"><img th:src="@{/img/logo.png}" style="width: 195px; height: 90px; margin-bottom: -15px; margin-top: -4px" alt="logo"/></a>
+            <h1>404</h1>
+            <h2>Oops! Page Not Found</h2>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search again" aria-describedby="basic-addon2"/>
+              <a href="#" class="input-group-addon" id="basic-addon2"><i class="fa fa-search"></i></a>
+            </div>
+            <a class="btn btn-default" th:href="@{/}" role="button">Go Back</a>
+          </div>
+        </div>
+      </div>
+    </section>
+	<!-- end of container -->
+<div th:replace="common/header :: footer"/>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="admin/common/header :: common-header" />
+
+<body>
+	<div th:replace="admin/common/header :: navbar" />
+
+	<div class="container">
+		<div class="row">
+			<form class="form-horizontal" th:action="@{/admin/product/updateProduct}" method="post"
+				enctype="multipart/form-data">
+				<fieldset>
+					<legend class="center-block">
+						Update Product Information<span style="font-size: small"> * is a
+							required field</span>
+					</legend>
+					
+					<input hidden="hidden" name="id" th:value="${product.id}" />
+
+
+					<!-- name -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="name">* name</label>
+
+						<div class="col-md-8">
+							<input type="text" name="name" class="form-control" id="name"
+								th:value="${product.name}" required="required" placeholder="name" />
+							<span class="help-block">name of the product</span>
+						</div>
+					</div>
+					
+						<!-- type -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="type">*
+							Type</label>
+						<div class="col-md-8">
+							<select th:value="${product.type}" id="type" name="type"
+								class="form-control">
+								<option value="" selected="selected" disabled="disabled">Please
+									select an option...</option>
+								<option value="Featured"
+									th:selected="(${product.type}=='Featured')">Featured</option>
+									<option value="Featured"
+									th:selected="(${product.type}=='New')">New</option>
+									<option value="New"
+									th:selected="(${product.type}=='TOP SELLERS')">TOP SELLERS</option>
+								
+							</select>
+						</div>
+					</div>
+
+					<!-- category -->
+				
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="productCategory">* Category</label>
+						<div class="col-md-8">
+							<select th:value="${product.productCategory}" id="productCategory" name="productCategory"
+								class="form-control">
+								
+								<option value="" selected="selected" disabled="disabled">Please
+									select a Category</option>
+									<option th:each="category: ${categoryList}"
+									 th:value="${category.categoryId}"
+									 th:selected="(${product.productCategory.categoryId} == ${category.categoryId})"
+								  th:text="${category.mainCategoryName}"></option>
+								
+
+							</select>
+						</div>
+					</div>
+
+
+				
+
+					<!-- product price -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="ourPrice">Product
+							Price</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<span class="input-group-addon">$</span> <input
+									th:value="${product.productPrice}" type="number" name="productPrice" step="0.01"
+									class="form-control" id="productPrice" placeholder="Our Price" />
+							</div>
+							<span class="help-block">Our price of the product</span>
+						</div>
+					</div>
+
+					<!-- in stock number -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">Number
+							in stock</label>
+						<div class="col-md-8">
+							<input th:value="${product.inStockNumber}" type="number"
+								name="inStockNumber" class="form-control" id="inStockNumber"
+								placeholder="Number of in-stock copies" /> <span
+								class="help-block">Number of in-stock copies</span>
+						</div>
+					</div>
+
+					<!-- status of product -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="status">Status</label>
+						<div class="col-md-8">
+							<label><input value="true" type="radio" name="active"
+								th:checked="${product.active}" /> Active </label> <label><input
+								value="false" type="radio" name="active" th:checked="${!product.active}"/>
+								Inactive </label> <span class="help-block">Whether the product is
+								active or inactive</span>
+						</div>
+					</div>
+
+					<!-- description -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="description">Description</label>
+						<div class="col-md-8">
+							<textarea name="description" rows="5" class="form-control"
+								id="description" th:value="${product.description}" th:text="${product.description}"
+								placeholder="Description" />
+							<span class="help-block">Description of the product</span>
+						</div>
+					</div>
+
+					<!-- upload image -->
+					<div class="form-group">
+						<div class="col-md-2">
+							<label for="productImage">Upload product image</label>
+						</div>
+						<div class="col-md-8">
+							<input id="productImage" type="file" name="productImage"
+								th:value="${product.productImage}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<button type="submit" class="btn btn-success">Update Product</button>
+							<a class="btn btn-danger" th:href="@{/admin/product/productInfo(id=${product.id})}">Cancel</a>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+
+	<div th:replace="admin/common/header :: body-bottom-scripts" />
+</body>
+</html>
